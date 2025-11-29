@@ -1,5 +1,4 @@
-﻿
-import express from "express";
+﻿import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import "dotenv/config";
@@ -8,12 +7,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// -------------------------------------------------------
+//  RUTA BASE
+// -------------------------------------------------------
 app.get("/", (req, res) => {
   res.send("API funcionando 🚀");
 });
 
 // -------------------------------------------------------
-//  CONEXI�N A MONGODB
+//  CONEXIÓN A MONGODB
 // -------------------------------------------------------
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB conectado"))
@@ -134,7 +136,7 @@ app.post("/login", async (req, res) => {
 });
 
 // -------------------------------------------------------
-//  PRODUCTOS (API P�BLICA)
+//  PRODUCTOS
 // -------------------------------------------------------
 
 app.get("/products", async (req, res) => {
@@ -159,7 +161,7 @@ app.post("/cart/add", async (req, res) => {
 
   await user.save();
 
-  res.json({ ok: true, msg: "Producto a�adido", data: user.cart });
+  res.json({ ok: true, msg: "Producto añadido", data: user.cart });
 });
 
 app.get("/cart", async (req, res) => {
@@ -172,7 +174,7 @@ app.get("/cart", async (req, res) => {
 });
 
 // -------------------------------------------------------
-//  �RDENES
+//  ÓRDENES
 // -------------------------------------------------------
 
 app.post("/order", async (req, res) => {
@@ -196,7 +198,7 @@ app.post("/order", async (req, res) => {
 });
 
 // -------------------------------------------------------
-//  ADMIN LOGIN
+//  ADMIN
 // -------------------------------------------------------
 
 app.post("/admin/login", async (req, res) => {
@@ -208,10 +210,6 @@ app.post("/admin/login", async (req, res) => {
   res.json({ ok: true, msg: "Login admin correcto" });
 });
 
-// -------------------------------------------------------
-//  ADMIN REGISTER
-// -------------------------------------------------------
-
 app.post("/admin/register", async (req, res) => {
   const { username, password } = req.body;
 
@@ -222,10 +220,6 @@ app.post("/admin/register", async (req, res) => {
 
   res.json({ ok: true, msg: "Administrador creado" });
 });
-
-// -------------------------------------------------------
-//  ADMIN PRODUCT CRUD
-// -------------------------------------------------------
 
 app.post("/admin/products", async (req, res) => {
   const product = await Product.create(req.body);
@@ -242,10 +236,6 @@ app.delete("/admin/products/:id", async (req, res) => {
   res.json({ ok: true, msg: "Producto eliminado" });
 });
 
-// -------------------------------------------------------
-//  ADMIN -> VER �RDENES
-// -------------------------------------------------------
-
 app.get("/admin/orders", async (req, res) => {
   const orders = await Order.find().populate("products.productId");
   res.json({ ok: true, data: orders });
@@ -256,9 +246,5 @@ app.get("/admin/orders", async (req, res) => {
 // -------------------------------------------------------
 
 app.listen(3000, "0.0.0.0", () => {
-  console.log("Servidor corriendo");
-});
-
-app.get("/", (req, res) => {
-  res.send("API funcionando 🚀");
+  console.log("Servidor corriendo en puerto 3000");
 });
