@@ -250,8 +250,6 @@ app.get("/admin/orders", async (req, res) => {
 //  SERVIDOR
 // -------------------------------------------------------
 
-const PORT = process.env.PORT ?? 4000;
-
-app.listen(PORT, "0.0.0.0", () =>
-  console.log(`Backend funcionando en http://localhost:${PORT}`)
-);
+app.listen(3000, "0.0.0.0", () => {
+  console.log("Servidor corriendo");
+});
