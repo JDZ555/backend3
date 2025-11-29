@@ -1,6 +1,4 @@
-﻿app.get("/", (req, res) => {
-  res.send("API funcionando 🚀");
-});
+﻿
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -9,6 +7,10 @@ import "dotenv/config";
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("API funcionando 🚀");
+});
 
 // -------------------------------------------------------
 //  CONEXI�N A MONGODB
@@ -255,4 +257,8 @@ app.get("/admin/orders", async (req, res) => {
 
 app.listen(3000, "0.0.0.0", () => {
   console.log("Servidor corriendo");
+});
+
+app.get("/", (req, res) => {
+  res.send("API funcionando 🚀");
 });
